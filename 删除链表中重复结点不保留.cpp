@@ -45,3 +45,43 @@ public:
 		return newNode;
 	}
 };
+
+//因为有可能会删除链表的第一个结点，所以我们需要自己定义个头结点listnode* p1=NULL;
+//因为p1需要随时更新到最新的元素，所以我们需要保存p1的值   listnode* head=p1;
+//还需要一个用来遍历整个链表的指针
+
+//当p1->val=p1->next->val的话表示我们进入了重复区域,所以让p2循环向后走，
+//找到第一个不是这个群中的元素,然后让p1->next指向p2
+//如果不重读则更新p1,p2
+
+class Solution {
+public:
+	ListNode* deleteDuplication(ListNode* pHead)
+	{
+		if (pHead == NULL || pHead->next == NULL)
+			return pHead;
+		ListNode* p1 = new ListNode(0);//头结点
+		ListNode* head = p1;//保存p1,因为p1会移动
+		ListNode* p2 = pHead;//用来遍历整个链表的
+
+		while (p2)
+		{
+			if (p2->next&&p2->val == p2->next->val)//
+			{
+				while (p2->next&&p2->val == p2->next->val)//过滤重复的元素
+				{
+					p2 = p2->next;
+				}
+				p2 = p2->next;
+				head->next = p2;
+			}
+			else
+			{
+				p1->next = p2;//p1指向不相等的那个元素
+				p1 = p2;
+				p1 = p2->next;
+			}
+		}
+		return head->next;
+	}
+};
