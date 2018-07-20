@@ -72,14 +72,14 @@ public:
 				{
 					p2 = p2->next;
 				}
-				p2 = p2->next;
-				head->next = p2;
+				p2 = p2->next;//p2走到不相等的元素
+				p1->next = p2;
 			}
 			else
 			{
 				p1->next = p2;//p1指向不相等的那个元素
-				p1 = p2;
-				p1 = p2->next;
+				p1 = p2;//p1走到当前不相等的位置
+				p2 = p2->next;//p2往后面走
 			}
 		}
 		return head->next;
